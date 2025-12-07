@@ -1,8 +1,7 @@
 const popup = document.getElementById('subscribe-modal');
 const popupClose = document.getElementsByClassName('modal__close')[0];
-const storage = window.localStorage;
 
-if (storage.needPopup !== 'false') {
+if (getCookie() !== 'true') {
 	document.addEventListener('DOMContentLoaded', () => {
 	popup.classList.add('modal_active');
 	})
@@ -10,5 +9,13 @@ if (storage.needPopup !== 'false') {
 
 popupClose.addEventListener('click', () => {
 	popup.classList.remove('modal_active');
-	storage.needPopup = 'false';
+	setCookie('true');
 })
+
+function setCookie(value) {
+	document.cookie = `needPopup:${encodeURIComponent(value)};`;
+}
+
+function getCookie() {
+	return decodeURIComponent(document.cookie).slice(10);
+}

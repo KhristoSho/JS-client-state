@@ -1,16 +1,14 @@
 const textarea = document.getElementById('editor');
 const clearButton = document.getElementById('clear');
-const storage = window.localStorage;
 
-if (storage.text) {
-    textarea.value = storage.text;
-}
+textarea.value = localStorage.getItem('text');
 
-textarea.addEventListener('keydown', () => {
-    storage.setItem('text', textarea.value)
+textarea.addEventListener('keyup', () => {
+    localStorage.setItem('text', textarea.value);
+    
 })
 
 clearButton.addEventListener('click', () => {
-    storage.text = '';
+    localStorage.removeItem('text');
     textarea.value = '';
 })
